@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <title>Moving Markers</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet">
+
+    <style>body {margin: 0; padding: 0;} #map {position: absolute; top: 0; bottom: 0; width: 100%;}</style>
+
+    <body>
+        <div id="map"></div>
+
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoiZGFyZWFsbXJibGluZ2Jsb3giLCJhIjoiY2wwNzdhc3AzMmVyYzNibHNiODYzcng3NSJ9.PvFrLqlk8RduEHm_Nzlm3w';
+            const map = new mapboxgl.Map ({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/satellite-v9',
+                center: [-71.104081, 42.365554],
+                zoom: 10
+            });
+
+        //Map Marker
+            var marker = new mapboxgl.Marker()
+            .setLngLat([-71.104081, 42.365554])
+            addTo(map);
+
+        //Moving Bus Stop
+        const busStops = [
+                [-71.104081, 42.365554],
+                [-71.094915, 42.360175],
+                [-71.0958, 42.360698],
+                [-71.099558, 42.362953],
+                [-71.103476, 42.365248],
+                [-71.106067, 42.366806],
+                [-71.108717, 42.368355],
+                [-71.110799, 42.369192],
+                [-71.113095, 42.370218],
+                [-71.115476, 42.372085],
+                [-71.117585, 42.373016],
+                [-71.118625, 42.374863],
+            ];
+
+        //Moving Marker (I Think)
+        var counter = 0;
+        function move() {
+            setTimeout(() => {
+                if (counter <= busStops.length) {
+                    marker.setLngLat(busStops[counter]);
+                    counter++;
+                }
+                move();
+            } ,1000);
+        }
+        move();
+        </script>
+    </body>
+</html>
